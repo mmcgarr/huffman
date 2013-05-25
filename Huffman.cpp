@@ -129,6 +129,8 @@ void Huffman::Compress(string filename){
 	inFile.seekg(0, ios_base::beg);
 
 
+  // Write the character encodings to the output file so that they 
+  // can be correctly interpreted when decoding.
 	for (int i = 0; i < 256; i++){
 		outFile << encodings[i] << '\0';
 	}
@@ -188,13 +190,15 @@ void Huffman::Decode(string filename){
 	// Now start getting the information from the file. 
 
 	c = inFile.get();
+  cout << (int)c << endl;
 
 	long pos = inFile.tellg();
 	cout << "*************                Pos : " << pos << endl; 
 	string currenc = "";
 	int timesShifted = 0;
 	while(pos <= length){
-		if (c % 2 == 0){
+    // By checking odd or even we can know the LSB. Is this right? Maybe it is the MSB?
+		if (c < 128){
 			currenc += '0';
 		}else{
 			currenc += '1';
@@ -203,7 +207,6 @@ void Huffman::Decode(string filename){
 		timesShifted++;
 
 		if (timesShifted == 8){
-//			cout << "Length: " << length << "   Pos: " << pos << endl;
 			c = inFile.get();
 			pos++;
 			timesShifted = 0;
@@ -267,7 +270,6 @@ int main(int argc, char ** argv){
 
 	}else if (option.compare("-d") == 0){
 		string filename = argv[2];
-		filename += ".mar";
 		cout << filename << endl;
 		huff->Decode(filename);
 	}

@@ -232,8 +232,10 @@ void Huffman::Decode(string filename){
 int main(int argc, char ** argv){
 
 	if (argc != 3){
-		cout << "Not enough args!" << endl;
-		cout << "Argc: " << argc << endl;
+		cout << "Usage:"<< endl;
+		cout << "   huff (-e|-d) <filename>" << endl;
+    cout << "     -e     encode <filename>" << endl;
+    cout << "     -d     decode <filename>" << endl;
 		return -1;
 	}
 

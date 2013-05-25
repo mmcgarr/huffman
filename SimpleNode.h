@@ -1,3 +1,8 @@
+// Class representing a leaf node in the Huffman tree. 
+// This points to no other nodes. 
+// Only has a character and it's frequency. 
+// For simplicity it uses the isSimple attribute of the parent to identify itself as simple. Not very elegant. 
+
 #include "Node.h"
 
 class SimpleNode: public Node{
